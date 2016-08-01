@@ -20,21 +20,31 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    let backgrounds = [Background(), Background()]
+    /// Holds two background which recycle to create and endless scrolling environment.
+    let backgrounds: [Background]
+    /// The Player object
     let alien: Alien
     
+    /// Sets the width of a scrolling background section.
     let backgroundWidth: CGFloat = 640
     
+    /// True when touching the screen.
     var touchDown = false
+    /// The amount of upward force applied to the alien when touching the screen.
     var up = CGVectorMake(0, 100)
+    
+    /// The time of the last update. Used to calculate delta time.
     var lastUpdateTime: CFTimeInterval = 0
     
+    /// State machine managing the state of the game.
     var gameState: GKStateMachine!
     
     // MARK: - Init
     
     override init(size: CGSize) {
         alien = Alien()
+        backgrounds = [Background(width: backgroundWidth, height: size.height),
+                       Background(width: backgroundWidth, height: size.height)]
         
         super.init(size: size)
         
@@ -52,6 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Setup
     
+    /// Set up physics world options and create an edgeloop body for the scene.
     func setupPhysics() {
         physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
@@ -62,20 +73,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity = CGVectorMake(0.0, -1.0)
     }
     
+    /// Setup the background sections which contain the scrolling environment.
     func setupBackground() {
         for i in 0 ..< backgrounds.count {
             backgrounds[i].position.x = CGFloat(i) * backgroundWidth
             addChild(backgrounds[i])
-            backgrounds[i].resetColumns()
+            if i == 0 {
+                // backgrounds[i].drawCollumnsFunnel()
+                backgrounds[i].drawReverseFunnel()
+            } else {
+                backgrounds[i].randomColumns()
+            }
         }
     }
     
+    /// Sets up the Alien, which is the player object.
     func setupAlien() {
         addChild(alien)
         alien.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
         alien.setTrailTarget(self)
     }
     
+    /// Set up game state machine.
     func setupStateMachine() {
         let playState = PlayState(scene: self)
         let gameOverState = GameOverState(scene: self)
@@ -128,6 +147,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    /// Push the Alien object
+    
     func pushAlien(deltaTime: CFTimeInterval) {
         let dx = (frame.width / 2 - alien.position.x) * 0.1
         if touchDown {
@@ -139,14 +160,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
+    /// Scroll the background elements.
+    
     func scrollBackground(deltaTime: CFTimeInterval) {
         for background in backgrounds {
             background.position.x -= 40 * CGFloat(deltaTime)
             
             if background.position.x < -backgroundWidth {
                 background.position.x += backgroundWidth * 2
-                background.resetColumns()
-                // resetBackgroundContent(background)
+                background.randomColumns()
+                // background.drawCollumnsFunnel()
             }
         }
     }
