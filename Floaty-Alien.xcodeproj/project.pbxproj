@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D834355A1D517F6C0006784E /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83435591D517F6C0006784E /* Thing.swift */; };
 		D87716FF1D4C484D005807F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87716FE1D4C484D005807F9 /* AppDelegate.swift */; };
 		D87717031D4C484D005807F9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717021D4C484D005807F9 /* GameScene.swift */; };
 		D87717051D4C484D005807F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717041D4C484D005807F9 /* GameViewController.swift */; };
@@ -17,16 +18,19 @@
 		D87717191D4C48A4005807F9 /* scenery.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D87717181D4C48A4005807F9 /* scenery.atlas */; };
 		D877171B1D4C4910005807F9 /* Alien.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877171A1D4C4910005807F9 /* Alien.swift */; };
 		D877171D1D4C4A1F005807F9 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877171C1D4C4A1F005807F9 /* PhysicsCategory.swift */; };
-		D877171F1D4C4C74005807F9 /* Sky.png in Resources */ = {isa = PBXBuildFile; fileRef = D877171E1D4C4C74005807F9 /* Sky.png */; };
 		D87717211D4C524A005807F9 /* PlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717201D4C524A005807F9 /* PlayState.swift */; };
 		D87717231D4C52AA005807F9 /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717221D4C52AA005807F9 /* GameOverState.swift */; };
 		D87717251D4D9294005807F9 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717241D4D9294005807F9 /* Block.swift */; };
 		D87717281D4DB15F005807F9 /* AlienTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = D87717261D4DB15F005807F9 /* AlienTrail.sks */; };
 		D87717291D4DB15F005807F9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D87717271D4DB15F005807F9 /* spark.png */; };
 		D877172B1D4DBCFB005807F9 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877172A1D4DBCFB005807F9 /* Background.swift */; };
+		D877172D1D4EF216005807F9 /* spark-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D877172C1D4EF216005807F9 /* spark-2.png */; };
+		D877172F1D4FB222005807F9 /* Landscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877172E1D4FB222005807F9 /* Landscape.swift */; };
+		D87717311D4FBC84005807F9 /* PositionZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717301D4FBC84005807F9 /* PositionZ.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D83435591D517F6C0006784E /* Thing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		D87716FB1D4C484D005807F9 /* Floaty-Alien.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Floaty-Alien.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87716FE1D4C484D005807F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D87717021D4C484D005807F9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -39,13 +43,15 @@
 		D87717181D4C48A4005807F9 /* scenery.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = scenery.atlas; sourceTree = "<group>"; };
 		D877171A1D4C4910005807F9 /* Alien.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alien.swift; sourceTree = "<group>"; };
 		D877171C1D4C4A1F005807F9 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
-		D877171E1D4C4C74005807F9 /* Sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sky.png; sourceTree = "<group>"; };
 		D87717201D4C524A005807F9 /* PlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayState.swift; sourceTree = "<group>"; };
 		D87717221D4C52AA005807F9 /* GameOverState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
 		D87717241D4D9294005807F9 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		D87717261D4DB15F005807F9 /* AlienTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AlienTrail.sks; sourceTree = "<group>"; };
 		D87717271D4DB15F005807F9 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D877172A1D4DBCFB005807F9 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		D877172C1D4EF216005807F9 /* spark-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spark-2.png"; sourceTree = "<group>"; };
+		D877172E1D4FB222005807F9 /* Landscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Landscape.swift; sourceTree = "<group>"; };
+		D87717301D4FBC84005807F9 /* PositionZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionZ.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +88,10 @@
 			children = (
 				D87716FE1D4C484D005807F9 /* AppDelegate.swift */,
 				D87717021D4C484D005807F9 /* GameScene.swift */,
+				D87717301D4FBC84005807F9 /* PositionZ.swift */,
 				D877172A1D4DBCFB005807F9 /* Background.swift */,
+				D83435591D517F6C0006784E /* Thing.swift */,
+				D877172E1D4FB222005807F9 /* Landscape.swift */,
 				D87717241D4D9294005807F9 /* Block.swift */,
 				D87717201D4C524A005807F9 /* PlayState.swift */,
 				D87717221D4C52AA005807F9 /* GameOverState.swift */,
@@ -90,10 +99,10 @@
 				D877171A1D4C4910005807F9 /* Alien.swift */,
 				D87717261D4DB15F005807F9 /* AlienTrail.sks */,
 				D87717271D4DB15F005807F9 /* spark.png */,
+				D877172C1D4EF216005807F9 /* spark-2.png */,
 				D87717041D4C484D005807F9 /* GameViewController.swift */,
 				D87717061D4C484D005807F9 /* Main.storyboard */,
 				D87717091D4C484D005807F9 /* Assets.xcassets */,
-				D877171E1D4C4C74005807F9 /* Sky.png */,
 				D877170B1D4C484D005807F9 /* LaunchScreen.storyboard */,
 				D877170E1D4C484D005807F9 /* Info.plist */,
 			);
@@ -161,10 +170,10 @@
 				D87717191D4C48A4005807F9 /* scenery.atlas in Resources */,
 				D877170D1D4C484D005807F9 /* LaunchScreen.storyboard in Resources */,
 				D877170A1D4C484D005807F9 /* Assets.xcassets in Resources */,
-				D877171F1D4C4C74005807F9 /* Sky.png in Resources */,
 				D87717281D4DB15F005807F9 /* AlienTrail.sks in Resources */,
 				D87717291D4DB15F005807F9 /* spark.png in Resources */,
 				D87717151D4C4866005807F9 /* alienBlue.atlas in Resources */,
+				D877172D1D4EF216005807F9 /* spark-2.png in Resources */,
 				D87717081D4C484D005807F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,11 +189,14 @@
 				D87717251D4D9294005807F9 /* Block.swift in Sources */,
 				D87717051D4C484D005807F9 /* GameViewController.swift in Sources */,
 				D87717231D4C52AA005807F9 /* GameOverState.swift in Sources */,
+				D834355A1D517F6C0006784E /* Thing.swift in Sources */,
 				D877171D1D4C4A1F005807F9 /* PhysicsCategory.swift in Sources */,
+				D877172F1D4FB222005807F9 /* Landscape.swift in Sources */,
 				D877172B1D4DBCFB005807F9 /* Background.swift in Sources */,
 				D87716FF1D4C484D005807F9 /* AppDelegate.swift in Sources */,
 				D877171B1D4C4910005807F9 /* Alien.swift in Sources */,
 				D87717211D4C524A005807F9 /* PlayState.swift in Sources */,
+				D87717311D4FBC84005807F9 /* PositionZ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +346,7 @@
 				D87717131D4C484D005807F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

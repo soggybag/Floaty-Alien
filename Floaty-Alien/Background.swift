@@ -17,6 +17,9 @@
  
 */
 
+
+
+
 import SpriteKit
 
 class Background: SKNode {
@@ -91,8 +94,8 @@ top and bottom pairs.
             topColumn.name = "top"
             bottomColumn.name = "bottom"
             
-            topColumn.zPosition = 5
-            bottomColumn.zPosition = 5
+            topColumn.zPosition = PositionZ.Background
+            bottomColumn.zPosition = PositionZ.Background
             
             topColumn.position.x = CGFloat(x) * blockSize + blockHalfSize
             bottomColumn.position.x = topColumn.position.x
@@ -123,7 +126,9 @@ top and bottom pairs.
         let columnheight = blockSize * CGFloat(numberOfBlocks)
         
         for i in 0 ..< numberOfBlocks {
-            let block = SKSpriteNode(texture: SKTexture(imageNamed: "wall-1"))
+            // TODO: Randomize tile images 
+            let n = arc4random() % 8 + 1
+            let block = SKSpriteNode(texture: SKTexture(imageNamed: "wall-\(n)"))
             column.addChild(block)
             let y = CGFloat(i) * blockSize - (columnheight / 2) + blockHalfSize
             block.position = CGPoint(x: 0, y: y)
@@ -146,20 +151,24 @@ top and bottom pairs.
         var space: Int = 6 // Int(arc4random() % 4) + 2
         var y = shiftColumnY(Background.lastColumnY, space: space)
         
+        clearThings()
+        
         for column in columns {
-            // column[0].position.y = -columnHeight / 2 + (CGFloat(y) * blockSize)
-            // column[1].position.y = column[0].position.y + columnHeight + (CGFloat(space) * blockSize)
-            
             positionColumnPair(column, y: y, space: space)
             
             // FIXME: Randomizing function for space is not working
             // space = adjustSpace(space)
             
+            addThingsToSpace(space, y: y, x: column[0].position.x)
+            
             y = shiftColumnY(y, space: space)
+            
         }
         
         Background.lastColumnY = y
         Background.lastSpace = space
+        
+        
     }
     
 /**
@@ -172,9 +181,6 @@ top and bottom pairs.
         var y = 1
         
         for column in columns {
-            // column[0].position.y = -columnHeight / 2 + (CGFloat(y) * blockSize)
-            // column[1].position.y = column[0].position.y + columnHeight + (CGFloat(space) * blockSize)
-            
             positionColumnPair(column, y: y, space: space)
             
             if space > 6 {
@@ -211,8 +217,21 @@ top and bottom pairs.
     
     // TODO: Generate things to collect in space
     
-    func addThingsToSpace(space: Int, x: CGFloat) {
+    func addThingsToSpace(space: Int, y: Int, x: CGFloat) {
+        let thing = Thing()
+        addChild(thing)
         
+        thing.position.x = x
+        let n = Int(arc4random() % UInt32(space))
+        thing.position.y = CGFloat(y + n) * blockSize + blockHalfSize
+        
+        thing.zPosition = PositionZ.Thing
+    }
+    
+    func clearThings() {
+        enumerateChildNodesWithName("thing") { (node, stop) in
+            node.removeFromParent()
+        }
     }
     
     
@@ -220,10 +239,22 @@ top and bottom pairs.
     
     // MARK: - Utilities
     
+    /** 
+     
+ Positions a column pair around a space. With one column above, and the other above
+ the space. 
+ 
+ - Parameter columnPair: **[SKNode]** an array containing the upper and power node. 
+ 
+ - Parameter y: **Int** the starting y position of hte lower column. Measured in block heights.
+ 
+ - Parameter space: **Int** the space between the upper and lower columns in block heights.
+ 
+     */
     
     func positionColumnPair(columnPair: [SKNode], y: Int, space: Int) {
         columnPair[0].position.y = -columnHeight / 2 + (CGFloat(y) * blockSize)
-        columnPair[1].position.y = columnPair[0].position.y + columnHeight + (CGFloat(space) * blockSize)
+        columnPair[1].position.y = columnPair[0].position.y + columnHeight + (CGFloat(space) * blockSize) - blockHalfSize
     }
     
     /**
@@ -241,9 +272,11 @@ top and bottom pairs.
     func shiftColumnY(y: Int, space: Int) -> Int {
         // TODO: Turn this into a more generic function
         // that returns a value adjust by a random amount that stays within a range
-        if y > 0 && y + space < totalVerticalBlocks {
+        // print("y: \(y) space: \(space) total: \(totalVerticalBlocks)")
+        
+        if y > 1 && y + space < totalVerticalBlocks - 1 {
             return y + Int(arc4random() % 3) - 1
-        } else if y == 0 {
+        } else if y == 1 {
             return y + Int(arc4random() % 2)
         } else {
             return y - Int(arc4random() % 2)

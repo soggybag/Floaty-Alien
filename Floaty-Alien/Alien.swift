@@ -59,6 +59,7 @@ class Alien: SKSpriteNode {
     func setupParticles() {
         addChild(trail)
         trail.targetNode = self.parent
+        trail.zPosition = 999 // PositionZ.Background
     }
     
     func setTrailTarget(node: SKNode) {

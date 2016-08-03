@@ -22,6 +22,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /// Holds two background which recycle to create and endless scrolling environment.
     let backgrounds: [Background]
+    /// Scrolling lanscapes 
+    let landscape: Landscape
+    
     /// The Player object
     let alien: Alien
     
@@ -43,11 +46,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize) {
         alien = Alien()
+        
+        let landscapeSize = CGSize(width: 640, height: size.height)
+        landscape = Landscape(size: landscapeSize, speed: 40)
+        
         backgrounds = [Background(width: backgroundWidth, height: size.height),
                        Background(width: backgroundWidth, height: size.height)]
         
         super.init(size: size)
         
+        setupLandscape()
         setupPhysics()
         setupBackground()
         setupAlien()
@@ -61,6 +69,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     // MARK: - Setup
+    
+    /// Setup the scrolling landscape
+    func setupLandscape() {
+        addChild(landscape)
+        landscape.zPosition = PositionZ.Landscape
+        landscape.alpha = 0.5
+    }
     
     /// Set up physics world options and create an edgeloop body for the scene.
     func setupPhysics() {
@@ -79,8 +94,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             backgrounds[i].position.x = CGFloat(i) * backgroundWidth
             addChild(backgrounds[i])
             if i == 0 {
-                // backgrounds[i].drawCollumnsFunnel()
-                backgrounds[i].drawReverseFunnel()
+                backgrounds[i].drawCollumnsFunnel()
+                // backgrounds[i].drawReverseFunnel()
             } else {
                 backgrounds[i].randomColumns()
             }
@@ -92,6 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(alien)
         alien.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
         alien.setTrailTarget(self)
+        alien.zPosition = PositionZ.Alien
     }
     
     /// Set up game state machine.
@@ -111,6 +127,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Setup your scene here */
         
     }
+    
+    
+    
+    
+    // MARK: - Physics Contact
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if collision == PhysicsCategory.Coin | PhysicsCategory.Player {
+            if contact.bodyA.node?.name == "thing" {
+                contact.bodyA.node?.removeFromParent()
+            } else {
+                contact.bodyB.node?.removeFromParent()
+            }
+        }
+    }
+    
+    
     
     
     
@@ -165,7 +200,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func scrollBackground(deltaTime: CFTimeInterval) {
         for background in backgrounds {
-            background.position.x -= 40 * CGFloat(deltaTime)
+            background.position.x -= 80 * CGFloat(deltaTime)
             
             if background.position.x < -backgroundWidth {
                 background.position.x += backgroundWidth * 2
