@@ -42,6 +42,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /// State machine managing the state of the game.
     var gameState: GKStateMachine!
     
+    var backgroundSpeed: CGFloat = 80
+    
     // MARK: - Init
     
     override init(size: CGSize) {
@@ -185,6 +187,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /// Push the Alien object
     
+    // TODO: Adjust for speed
+    // TODO: Adjust for deltaTime
+    
     func pushAlien(deltaTime: CFTimeInterval) {
         let dx = (frame.width / 2 - alien.position.x) * 0.1
         if touchDown {
@@ -201,13 +206,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func scrollBackground(deltaTime: CFTimeInterval) {
         for background in backgrounds {
-            background.position.x -= 80 * CGFloat(deltaTime)
+            background.position.x -= backgroundSpeed * CGFloat(deltaTime)
             
             if background.position.x < -backgroundWidth {
                 background.position.x += backgroundWidth * 2
                 // background.randomColumns()
                 // background.drawCollumnsFunnel()
                 background.makeCave()
+                
+                backgroundSpeed += 5
+            }
+        }
+    }
+    
+    
+    func moveBackground(deltaTime: CFTimeInterval) {
+        for background in backgrounds {
+            background.position.x -= backgroundSpeed * CGFloat(deltaTime)
+        }
+    }
+    
+    
+    func adjustBackground(deltaTime: CFTimeInterval) {
+        for background in backgrounds {
+            if background.position.x < -backgroundWidth {
+                background.position.x += backgroundWidth * 2
+                // background.randomColumns()
+                // background.drawCollumnsFunnel()
+                background.makeCave()
+                
+                backgroundSpeed += 5
             }
         }
     }

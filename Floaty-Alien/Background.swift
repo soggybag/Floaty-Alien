@@ -256,14 +256,14 @@ top and bottom pairs.
     
     
     
-    // TODO: Generate things to collect in space
+    // TODO: Generate more things to collect in space
     
     func addThingsToSpace(space: Int, y: Int, x: CGFloat) {
         let thing = Thing()
         addChild(thing)
         
         thing.position.x = x
-        let n = 0 // Int(arc4random() % UInt32(space))
+        let n = space - 1 // Int(arc4random() % UInt32(space))
         
         thing.position.y = CGFloat(y + n) * blockSize + blockHalfSize
         
