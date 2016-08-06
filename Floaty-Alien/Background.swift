@@ -162,8 +162,10 @@ top and bottom pairs.
             addThingsToSpace(space, y: y, x: column[0].position.x)
             
             y = shiftColumnY(y, space: space)
-            
+            print(y, space)
         }
+        
+        print("-----------------------")
         
         Background.lastColumnY = y
         Background.lastSpace = space
@@ -214,6 +216,45 @@ top and bottom pairs.
     }
     
     
+    func makeCave() {
+        var space = Background.lastSpace
+        var lowerY = Background.lastColumnY
+        var upperY = lowerY + space
+        
+        clearThings()
+        
+        for column in columns {
+            if lowerY > 3 {
+                lowerY += Int(arc4random() % 4) - 2 // -2 to 1
+            } else if lowerY > 2 {
+                lowerY += Int(arc4random() % 4) - 1 // -1 to 2
+            } else {
+                lowerY += Int(arc4random() % 3) // 0 to 2
+            }
+            
+            if totalVerticalBlocks - upperY > 3 {
+                upperY += Int(arc4random() % 4) - 1      // -1 to 3
+            } else if totalVerticalBlocks - upperY > 2 {
+                upperY += Int(arc4random() % 3) - 1      // -1 to 2
+            } else {
+                upperY += Int(arc4random() % 2) - 2        // 0 to -2
+            }
+            
+            positionColumnPair(column, y: lowerY, space: space)
+            
+            addThingsToSpace(space, y: lowerY, x: column[0].position.x)
+            
+            space = upperY - lowerY
+            print(lowerY + space)
+        }
+        
+        print("------------- \(totalVerticalBlocks)")
+        
+        Background.lastColumnY = lowerY
+        Background.lastSpace = space
+    }
+    
+    
     
     // TODO: Generate things to collect in space
     
@@ -222,7 +263,8 @@ top and bottom pairs.
         addChild(thing)
         
         thing.position.x = x
-        let n = Int(arc4random() % UInt32(space))
+        let n = 0 // Int(arc4random() % UInt32(space))
+        
         thing.position.y = CGFloat(y + n) * blockSize + blockHalfSize
         
         thing.zPosition = PositionZ.Thing

@@ -98,6 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 // backgrounds[i].drawReverseFunnel()
             } else {
                 backgrounds[i].randomColumns()
+                // backgrounds[i].makeCave()
             }
         }
     }
@@ -204,8 +205,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if background.position.x < -backgroundWidth {
                 background.position.x += backgroundWidth * 2
-                background.randomColumns()
+                // background.randomColumns()
                 // background.drawCollumnsFunnel()
+                background.makeCave()
             }
         }
     }
