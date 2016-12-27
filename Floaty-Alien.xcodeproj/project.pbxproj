@@ -27,6 +27,11 @@
 		D877172D1D4EF216005807F9 /* spark-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D877172C1D4EF216005807F9 /* spark-2.png */; };
 		D877172F1D4FB222005807F9 /* Landscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877172E1D4FB222005807F9 /* Landscape.swift */; };
 		D87717311D4FBC84005807F9 /* PositionZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87717301D4FBC84005807F9 /* PositionZ.swift */; };
+		D8FC1D251D56DF2100A86B2A /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FC1D241D56DF2100A86B2A /* ScoreDisplay.swift */; };
+		D8FC1D271D56F0CC00A86B2A /* 04B_19__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = D8FC1D261D56F0C100A86B2A /* 04B_19__.TTF */; };
+		D8FC1D291D56F14600A86B2A /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FC1D281D56F14600A86B2A /* ScoreManager.swift */; };
+		D8FC1D2B1D56F66900A86B2A /* alien-bomb.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8FC1D2A1D56F66900A86B2A /* alien-bomb.atlas */; };
+		D8FC1D2D1D57A08900A86B2A /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FC1D2C1D57A08900A86B2A /* Bomb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +57,11 @@
 		D877172C1D4EF216005807F9 /* spark-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spark-2.png"; sourceTree = "<group>"; };
 		D877172E1D4FB222005807F9 /* Landscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Landscape.swift; sourceTree = "<group>"; };
 		D87717301D4FBC84005807F9 /* PositionZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionZ.swift; sourceTree = "<group>"; };
+		D8FC1D241D56DF2100A86B2A /* ScoreDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDisplay.swift; sourceTree = "<group>"; };
+		D8FC1D261D56F0C100A86B2A /* 04B_19__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = 04B_19__.TTF; sourceTree = "<group>"; };
+		D8FC1D281D56F14600A86B2A /* ScoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
+		D8FC1D2A1D56F66900A86B2A /* alien-bomb.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = "alien-bomb.atlas"; path = "Floaty-Alien/alien-bomb.atlas"; sourceTree = "<group>"; };
+		D8FC1D2C1D57A08900A86B2A /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +80,7 @@
 			children = (
 				D87716FD1D4C484D005807F9 /* Floaty-Alien */,
 				D87716FC1D4C484D005807F9 /* Products */,
+				D8FC1D2A1D56F66900A86B2A /* alien-bomb.atlas */,
 				D87717181D4C48A4005807F9 /* scenery.atlas */,
 				D87717141D4C4866005807F9 /* alienBlue.atlas */,
 			);
@@ -88,9 +99,12 @@
 			children = (
 				D87716FE1D4C484D005807F9 /* AppDelegate.swift */,
 				D87717021D4C484D005807F9 /* GameScene.swift */,
+				D8FC1D241D56DF2100A86B2A /* ScoreDisplay.swift */,
+				D8FC1D281D56F14600A86B2A /* ScoreManager.swift */,
 				D87717301D4FBC84005807F9 /* PositionZ.swift */,
 				D877172A1D4DBCFB005807F9 /* Background.swift */,
 				D83435591D517F6C0006784E /* Thing.swift */,
+				D8FC1D2C1D57A08900A86B2A /* Bomb.swift */,
 				D877172E1D4FB222005807F9 /* Landscape.swift */,
 				D87717241D4D9294005807F9 /* Block.swift */,
 				D87717201D4C524A005807F9 /* PlayState.swift */,
@@ -100,6 +114,7 @@
 				D87717261D4DB15F005807F9 /* AlienTrail.sks */,
 				D87717271D4DB15F005807F9 /* spark.png */,
 				D877172C1D4EF216005807F9 /* spark-2.png */,
+				D8FC1D261D56F0C100A86B2A /* 04B_19__.TTF */,
 				D87717041D4C484D005807F9 /* GameViewController.swift */,
 				D87717061D4C484D005807F9 /* Main.storyboard */,
 				D87717091D4C484D005807F9 /* Assets.xcassets */,
@@ -141,6 +156,7 @@
 				TargetAttributes = {
 					D87716FA1D4C484D005807F9 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -170,7 +186,9 @@
 				D87717191D4C48A4005807F9 /* scenery.atlas in Resources */,
 				D877170D1D4C484D005807F9 /* LaunchScreen.storyboard in Resources */,
 				D877170A1D4C484D005807F9 /* Assets.xcassets in Resources */,
+				D8FC1D2B1D56F66900A86B2A /* alien-bomb.atlas in Resources */,
 				D87717281D4DB15F005807F9 /* AlienTrail.sks in Resources */,
+				D8FC1D271D56F0CC00A86B2A /* 04B_19__.TTF in Resources */,
 				D87717291D4DB15F005807F9 /* spark.png in Resources */,
 				D87717151D4C4866005807F9 /* alienBlue.atlas in Resources */,
 				D877172D1D4EF216005807F9 /* spark-2.png in Resources */,
@@ -191,9 +209,12 @@
 				D87717231D4C52AA005807F9 /* GameOverState.swift in Sources */,
 				D834355A1D517F6C0006784E /* Thing.swift in Sources */,
 				D877171D1D4C4A1F005807F9 /* PhysicsCategory.swift in Sources */,
+				D8FC1D291D56F14600A86B2A /* ScoreManager.swift in Sources */,
 				D877172F1D4FB222005807F9 /* Landscape.swift in Sources */,
+				D8FC1D2D1D57A08900A86B2A /* Bomb.swift in Sources */,
 				D877172B1D4DBCFB005807F9 /* Background.swift in Sources */,
 				D87716FF1D4C484D005807F9 /* AppDelegate.swift in Sources */,
+				D8FC1D251D56DF2100A86B2A /* ScoreDisplay.swift in Sources */,
 				D877171B1D4C4910005807F9 /* Alien.swift in Sources */,
 				D87717211D4C524A005807F9 /* PlayState.swift in Sources */,
 				D87717311D4FBC84005807F9 /* PositionZ.swift in Sources */,
@@ -313,6 +334,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.webdevils.Floaty-Alien";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -324,6 +346,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.webdevils.Floaty-Alien";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

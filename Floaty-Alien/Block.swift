@@ -14,7 +14,7 @@ class Block: SKSpriteNode {
     // MARK: - Init
     init(blockTexture: SKTexture) {
         
-        super.init(texture: blockTexture, color: UIColor.clearColor(), size: blockTexture.size())
+        super.init(texture: blockTexture, color: UIColor.clear, size: blockTexture.size())
         
         setupPhysics()
         
@@ -29,13 +29,13 @@ class Block: SKSpriteNode {
     // MARK: - Setup
     
     func setupPhysics() {
-        physicsBody = SKPhysicsBody(rectangleOfSize: texture!.size())
+        physicsBody = SKPhysicsBody(rectangleOf: texture!.size())
         
         physicsBody!.categoryBitMask = PhysicsCategory.Block
         physicsBody!.collisionBitMask = PhysicsCategory.Player
         physicsBody!.contactTestBitMask = PhysicsCategory.None
         
-        physicsBody!.dynamic = false
+        physicsBody!.isDynamic = false
     }
     
 }

@@ -16,7 +16,7 @@ class PlayState: GKState {
         self.scene = scene
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+    override func update(deltaTime seconds: TimeInterval) {
         // scene.scrollBackground(seconds)
         scene.moveBackground(seconds)
         scene.adjustBackground(seconds)

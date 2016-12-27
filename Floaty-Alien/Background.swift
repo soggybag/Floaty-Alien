@@ -121,7 +121,7 @@ top and bottom pairs.
  
  */
     
-    func makeColumn(numberOfBlocks: Int) -> SKNode {
+    func makeColumn(_ numberOfBlocks: Int) -> SKNode {
         let column = SKNode()
         let columnheight = blockSize * CGFloat(numberOfBlocks)
         
@@ -135,8 +135,8 @@ top and bottom pairs.
         }
         
         let columnSize = CGSize(width: blockSize, height: columnheight)
-        column.physicsBody = SKPhysicsBody(rectangleOfSize: columnSize)
-        column.physicsBody!.dynamic = false
+        column.physicsBody = SKPhysicsBody(rectangleOf: columnSize)
+        column.physicsBody!.isDynamic = false
         
         column.physicsBody!.categoryBitMask = PhysicsCategory.Block
         column.physicsBody!.collisionBitMask = PhysicsCategory.Player
@@ -148,7 +148,7 @@ top and bottom pairs.
 
     
     func randomColumns() {
-        var space: Int = 6 // Int(arc4random() % 4) + 2
+        let space: Int = 6 // Int(arc4random() % 4) + 2
         var y = shiftColumnY(Background.lastColumnY, space: space)
         
         clearThings()
@@ -165,12 +165,8 @@ top and bottom pairs.
             print(y, space)
         }
         
-        print("-----------------------")
-        
         Background.lastColumnY = y
         Background.lastSpace = space
-        
-        
     }
     
 /**
@@ -178,6 +174,7 @@ top and bottom pairs.
  Draws columns in a funnel shape narrowing from left to right.
      
 */
+    
     func drawCollumnsFunnel() {
         var space: Int = totalVerticalBlocks - 2
         var y = 1
@@ -248,8 +245,6 @@ top and bottom pairs.
             print(lowerY + space)
         }
         
-        print("------------- \(totalVerticalBlocks)")
-        
         Background.lastColumnY = lowerY
         Background.lastSpace = space
     }
@@ -258,12 +253,21 @@ top and bottom pairs.
     
     // TODO: Generate more things to collect in space
     
-    func addThingsToSpace(space: Int, y: Int, x: CGFloat) {
-        let thing = Thing()
+    func addThingsToSpace(_ space: Int, y: Int, x: CGFloat) {
+        
+        let thing: Thing
+        let r = arc4random() % 5
+        switch r {
+        case 0:
+            thing = Bomb()
+        default:
+            thing = Thing()
+        }
+        
         addChild(thing)
         
         thing.position.x = x
-        let n = space - 1 // Int(arc4random() % UInt32(space))
+        let n = Int(arc4random() % UInt32(space))
         
         thing.position.y = CGFloat(y + n) * blockSize + blockHalfSize
         
@@ -271,7 +275,7 @@ top and bottom pairs.
     }
     
     func clearThings() {
-        enumerateChildNodesWithName("thing") { (node, stop) in
+        enumerateChildNodes(withName: "thing") { (node, stop) in
             node.removeFromParent()
         }
     }
@@ -294,7 +298,7 @@ top and bottom pairs.
  
      */
     
-    func positionColumnPair(columnPair: [SKNode], y: Int, space: Int) {
+    func positionColumnPair(_ columnPair: [SKNode], y: Int, space: Int) {
         columnPair[0].position.y = -columnHeight / 2 + (CGFloat(y) * blockSize)
         columnPair[1].position.y = columnPair[0].position.y + columnHeight + (CGFloat(space) * blockSize) - blockHalfSize
     }
@@ -311,7 +315,7 @@ top and bottom pairs.
      
      */
     
-    func shiftColumnY(y: Int, space: Int) -> Int {
+    func shiftColumnY(_ y: Int, space: Int) -> Int {
         // TODO: Turn this into a more generic function
         // that returns a value adjust by a random amount that stays within a range
         // print("y: \(y) space: \(space) total: \(totalVerticalBlocks)")
@@ -328,7 +332,7 @@ top and bottom pairs.
     
     
     
-    func adjustSpace(space: Int) -> Int {
+    func adjustSpace(_ space: Int) -> Int {
         // FIXME: This isn't working
         if space > 2 && space < totalVerticalBlocks {
             return space - Int(arc4random() % 3) - 1

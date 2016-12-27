@@ -17,7 +17,7 @@ class Thing: SKSpriteNode {
     init() {
         let texture = SKTexture(imageNamed: "star-1")
         
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        super.init(texture: texture, color: UIColor.clear, size: texture.size())
         
         setupThing()
         
@@ -36,7 +36,7 @@ class Thing: SKSpriteNode {
         
         physicsBody = SKPhysicsBody(circleOfRadius: 10)
         
-        physicsBody!.dynamic = false
+        physicsBody!.isDynamic = false
         
         physicsBody!.categoryBitMask = PhysicsCategory.Coin
         physicsBody!.collisionBitMask = PhysicsCategory.None

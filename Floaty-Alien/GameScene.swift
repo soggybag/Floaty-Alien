@@ -8,9 +8,7 @@
 
 
 
-
-// TODO: Create special starting arrangement for blocks. 
-// TODO: add parent node to hold background, particles should target this node. 
+// TODO: Add score/Distance travelled class 
 // TODO: Invent some block types for fun interaction.
 
 
@@ -34,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /// True when touching the screen.
     var touchDown = false
     /// The amount of upward force applied to the alien when touching the screen.
-    var up = CGVectorMake(0, 100)
+    var up = CGVector(dx: 0, dy: 100)
     
     /// The time of the last update. Used to calculate delta time.
     var lastUpdateTime: CFTimeInterval = 0
@@ -43,6 +41,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameState: GKStateMachine!
     
     var backgroundSpeed: CGFloat = 80
+    
+    var scoreDisplay: ScoreDisplay
     
     // MARK: - Init
     
@@ -55,6 +55,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgrounds = [Background(width: backgroundWidth, height: size.height),
                        Background(width: backgroundWidth, height: size.height)]
         
+        scoreDisplay = ScoreDisplay()
+        
         super.init(size: size)
         
         setupLandscape()
@@ -62,6 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBackground()
         setupAlien()
         setupStateMachine()
+        setupScoreDisplay()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,13 +84,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /// Set up physics world options and create an edgeloop body for the scene.
     func setupPhysics() {
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
         physicsBody!.collisionBitMask = PhysicsCategory.Player
         physicsBody!.contactTestBitMask = PhysicsCategory.Player
  
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVectorMake(0.0, -1.0)
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -1.0)
     }
     
     /// Setup the background sections which contain the scrolling environment.
@@ -119,14 +122,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let gameOverState = GameOverState(scene: self)
         
         gameState = GKStateMachine(states: [playState, gameOverState])
-        gameState.enterState(PlayState)
+        gameState.enter(PlayState)
+    }
+    
+    func setupScoreDisplay() {
+        addChild(scoreDisplay)
+        scoreDisplay.position.x = 10
+        scoreDisplay.position.y = size.height - 10
     }
     
     
     
     // MARK: - Did Move to View
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         /* Setup your scene here */
         
     }
@@ -136,13 +145,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Physics Contact
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
         if collision == PhysicsCategory.Coin | PhysicsCategory.Player {
-            if contact.bodyA.node?.name == "thing" {
+            // Player contact star score a point
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Coin {
+                if contact.bodyA.node is Bomb {
+                    ScoreManager.sharedInstance.addCoins(3)
+                } else {
+                    ScoreManager.sharedInstance.addCoins()
+                }
                 contact.bodyA.node?.removeFromParent()
+                
             } else {
+                if contact.bodyB.node is Bomb {
+                    ScoreManager.sharedInstance.addCoins(3)
+                } else {
+                    ScoreManager.sharedInstance.addCoins()
+                }
                 contact.bodyB.node?.removeFromParent()
             }
         }
@@ -154,15 +175,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Touch Events
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchDown = true
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchDown = false
     }
    
@@ -171,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Update
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
         
         var deltaTime: CFTimeInterval = currentTime - lastUpdateTime
@@ -181,7 +202,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             lastUpdateTime = currentTime
         }
         
-        gameState.updateWithDeltaTime(deltaTime)
+        gameState.update(deltaTime: deltaTime)
     }
     
     
@@ -190,7 +211,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // TODO: Adjust for speed
     // TODO: Adjust for deltaTime
     
-    func pushAlien(deltaTime: CFTimeInterval) {
+    func pushAlien(_ deltaTime: CFTimeInterval) {
         let dx = (frame.width / 2 - alien.position.x) * 0.1
         if touchDown {
             up.dx = dx
@@ -204,7 +225,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /// Scroll the background elements.
     
-    func scrollBackground(deltaTime: CFTimeInterval) {
+    func scrollBackground(_ deltaTime: CFTimeInterval) {
         for background in backgrounds {
             background.position.x -= backgroundSpeed * CGFloat(deltaTime)
             
@@ -220,14 +241,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func moveBackground(deltaTime: CFTimeInterval) {
+    func moveBackground(_ deltaTime: CFTimeInterval) {
         for background in backgrounds {
             background.position.x -= backgroundSpeed * CGFloat(deltaTime)
         }
     }
     
     
-    func adjustBackground(deltaTime: CFTimeInterval) {
+    func adjustBackground(_ deltaTime: CFTimeInterval) {
         for background in backgrounds {
             if background.position.x < -backgroundWidth {
                 background.position.x += backgroundWidth * 2

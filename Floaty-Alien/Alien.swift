@@ -18,8 +18,10 @@ class Alien: SKSpriteNode {
         let alienAtlas = SKTextureAtlas(named: "alienBlue")
         
         super.init(texture: alienAtlas.textureNamed("alien-blue-1"),
-                   color: UIColor.clearColor(),
+                   color: UIColor.clear,
                    size: alienAtlas.textureNamed("alien-blue-1").size())
+        
+        name = "Alien"
         
         setupPhysics()
         setupAnimation(alienAtlas)
@@ -34,7 +36,7 @@ class Alien: SKSpriteNode {
     // MARK: - Setup
     
     func setupPhysics() {
-        physicsBody = SKPhysicsBody(rectangleOfSize: texture!.size())
+        physicsBody = SKPhysicsBody(rectangleOf: texture!.size())
         physicsBody!.categoryBitMask = PhysicsCategory.Player
         physicsBody!.collisionBitMask = PhysicsCategory.Block | PhysicsCategory.Edge
         physicsBody!.contactTestBitMask = PhysicsCategory.Coin | PhysicsCategory.Edge
@@ -43,16 +45,16 @@ class Alien: SKSpriteNode {
         physicsBody!.linearDamping = 0.5
     }
     
-    func setupAnimation(atlas: SKTextureAtlas) {
+    func setupAnimation(_ atlas: SKTextureAtlas) {
         var frames = [SKTexture]()
         
         for i in 1 ..< atlas.textureNames.count - 1 {
             frames.append(atlas.textureNamed("alien-blue-\(i)"))
         }
         
-        let animate = SKAction.animateWithTextures(frames, timePerFrame: 0.3)
-        let repeatForever = SKAction.repeatActionForever(animate)
-        runAction(repeatForever)
+        let animate = SKAction.animate(with: frames, timePerFrame: 0.3)
+        let repeatForever = SKAction.repeatForever(animate)
+        run(repeatForever)
     }
     
     
@@ -62,7 +64,7 @@ class Alien: SKSpriteNode {
         trail.zPosition = 999 // PositionZ.Background
     }
     
-    func setTrailTarget(node: SKNode) {
+    func setTrailTarget(_ node: SKNode) {
         trail.targetNode = node
     }
     

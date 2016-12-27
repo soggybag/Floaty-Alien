@@ -47,7 +47,7 @@ class Landscape: SKNode {
     
     // MARK: - Utility methods 
     
-    func updateWithDeltaTime(deltaTime: CFTimeInterval) {
+    func updateWithDeltaTime(_ deltaTime: CFTimeInterval) {
         for landscape in landscapeNodes {
             landscape.position.x -= landscapeSpeed * CGFloat(deltaTime)
             if landscape.position.x < -(landscapeSize.width + scene!.frame.width / 2) {
@@ -57,7 +57,7 @@ class Landscape: SKNode {
         }
     }
     
-    func reset(node: SKNode) {
+    func reset(_ node: SKNode) {
         node.removeAllChildren()
         let n = arc4random() % 3 + 1
         let sprite = SKSpriteNode(imageNamed: "Sky-\(n)")

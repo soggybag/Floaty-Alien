@@ -13,4 +13,5 @@ struct PositionZ {
     static let Background: CGFloat  = 1
     static let Alien: CGFloat       = 5
     static let Thing: CGFloat       = 9
+    static let Score: CGFloat       = 99
 }
