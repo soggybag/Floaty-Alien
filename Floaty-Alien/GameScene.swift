@@ -122,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let gameOverState = GameOverState(scene: self)
         
         gameState = GKStateMachine(states: [playState, gameOverState])
-        gameState.enter(PlayState)
+        gameState.enter(PlayState.self)
     }
     
     func setupScoreDisplay() {
